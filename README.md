@@ -1,7 +1,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![pipeline status][pipeline-shield][pipeline-url]
+[![pipeline status][pipeline-shield]][pipeline-url]
 
 # Nim URL Shortener
 
