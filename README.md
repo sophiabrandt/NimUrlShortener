@@ -50,7 +50,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 
-&copy; 2020 Sophia Brandt. Distributed under the MIT License. See [LICENSE](License) for details.
+&copy; 2020 Sophia Brandt. Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## Contact
 
