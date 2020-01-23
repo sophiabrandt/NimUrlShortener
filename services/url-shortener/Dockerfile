@@ -1,5 +1,5 @@
 # base image
-FROM nimlang/nim:1.0.4-regular
+FROM nimlang/nim:1.0.4-regular AS build-image
 
 # set working directory
 WORKDIR /usr/src/app

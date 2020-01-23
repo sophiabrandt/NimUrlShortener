@@ -1,0 +1,24 @@
+image: docker:stable
+
+stages:
+  - build-url-shortener
+
+variables:
+  IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
+
+build:
+  stage: build-url-shortener
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull $IMAGE:url-shortener-build-stage || true
+    - docker build
+        --target build-image
+        --cache-from $IMAGE:url-shortener-build-stage
+        --tag $IMAGE:url-shortener-build-stage
+        --file ./services/url-shortener/Dockerfile
+        "./services/url-shortener"
+    - docker push $IMAGE:url-shortener-build-stage
