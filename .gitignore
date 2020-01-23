@@ -1,1 +1,2 @@
 services/url-shortener/nimcache
+services/url-shortener/*.db
