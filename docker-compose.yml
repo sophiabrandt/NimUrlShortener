@@ -1,0 +1,12 @@
+version: '2.4'
+
+services:
+
+  url-shortener:
+    build:
+      context: ./services/url-shortener
+      dockerfile: Dockerfile
+    volumes:
+      - './services/url-shortener:/usr/src/app:delegated'
+    ports:
+      - 5001:5000
