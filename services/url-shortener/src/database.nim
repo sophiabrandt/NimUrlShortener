@@ -2,7 +2,7 @@ import db_sqlite
 
 type
   Url* = object
-    id*: int
+    shortcode*: int
     orig_url*: string
 
 type
@@ -16,7 +16,7 @@ proc close*(database: Database) =
 proc setup*(database: Database) =
   database.db.exec(sql"""
     CREATE TABLE IF NOT EXISTS Url(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      shortcode INTEGER PRIMARY KEY AUTOINCREMENT,
       orig_url VARCHAR(255) NOT NULL
     );
   """)
@@ -32,10 +32,13 @@ proc `$` *(i: uint): string {.inline.} =
 proc shorten*(database: Database, url: Url): string {.raises: [DbError,
     ValueError].} =
   if url.orig_url.len > 3:
+    # search for original url in database and return its shortcode
     result = database.db.getValue(
-        sql"SELECT id FROM Url where orig_url=?", url.orig_url)
-    if not result.len == 0:
+        sql"SELECT shortcode FROM Url where orig_url=?", url.orig_url)
+    # if not found, add original url to database
+    if result.len == 0:
       result = $database.db.insertID(
           sql"INSERT INTO Url (orig_url) VALUES (?)", url.orig_url)
+  # only accept urls that are longer than 3 characters
   else:
     raise newException(ValueError, "Please specify an url that's longer than 3 characters.")
