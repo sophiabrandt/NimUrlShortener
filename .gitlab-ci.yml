@@ -15,20 +15,19 @@ build:
     DOCKER_DRIVER: overlay2
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull $IMAGE:url-shortener-build-stage || true
+    - docker pull $IMAGE:url-shortener-latest || true
     - docker build
-        --target build-image
-        --cache-from $IMAGE:url-shortener-build-stage
-        --tag $IMAGE:url-shortener-build-stage
-        --file ./services/url-shortener/Dockerfile
+        --cache-from $IMAGE:url-shortener-latest
+        --tag $IMAGE:url-shortener-latest
+        --file ./services/url-shortener/Dockerfile.prod
         "./services/url-shortener"
-    - docker push $IMAGE:url-shortener-build-stage
+    - docker push $IMAGE:url-shortener-latest
 
 test-url-shortener:
   stage: test-url-shortener
-  image: $IMAGE:url-shortener-build-stage
+  image: $IMAGE:url-shortener-latest
   services:
     - docker:dind
   script:
     - cd /usr/src/app
-    - nimble c -ry tests/database_test
+    - nimble c -ry tests/database_test.nim

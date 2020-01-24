@@ -4,5 +4,8 @@ FROM nimlang/nim:1.0.4-regular
 # set working directory
 WORKDIR /usr/src/app
 
+# copy app
+COPY . .
+
 # run server
-CMD nimble c -ry src/urlShortener
+CMD nimble c -ry -d:release src/urlShortener
