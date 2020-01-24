@@ -2,6 +2,7 @@ image: docker:stable
 
 stages:
   - build-url-shortener
+  - test-url-shortener
 
 variables:
   IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
@@ -22,3 +23,9 @@ build:
         --file ./services/url-shortener/Dockerfile
         "./services/url-shortener"
     - docker push $IMAGE:url-shortener-build-stage
+
+test-url-shortener:
+  stage: test-url-shortener
+  image: $IMAGE:url-shortener-build-stage
+  script:
+    - nimble c -ry tests/database_test
