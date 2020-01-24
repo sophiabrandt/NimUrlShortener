@@ -28,4 +28,5 @@ test-url-shortener:
   stage: test-url-shortener
   image: $IMAGE:url-shortener-build-stage
   script:
+    - cd /usr/src/app
     - nimble c -ry tests/database_test
