@@ -10,3 +10,18 @@ services:
       - './services/url-shortener:/usr/src/app:delegated'
     ports:
       - 5001:5000
+    environment:
+      - DATABASE_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_dev
+      - DATABASE_TEST_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_test
+    depends_on:
+      - url-shortener-db
+
+  url-shortener-db:
+    build:
+      context: ./services/url-shortener/src/db
+      dockerfile: Dockerfile
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

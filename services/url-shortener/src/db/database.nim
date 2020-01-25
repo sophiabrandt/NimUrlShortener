@@ -1,4 +1,4 @@
-import db_sqlite
+import db_postgres, strutils, os
 
 type
   Url* = object
@@ -16,21 +16,20 @@ proc close*(database: Database) =
 proc setup*(database: Database) =
   database.db.exec(sql"""
     CREATE TABLE IF NOT EXISTS Url(
-      shortcode INTEGER PRIMARY KEY AUTOINCREMENT,
+      shortcode SERIAL PRIMARY KEY,
       orig_url VARCHAR(255) NOT NULL
     );
   """)
 
-proc newDatabase*(filename = "url-shortener.db"): Database =
+proc newDatabase*(dbConn = os.getEnv("DATABASE_CONN")): Database =
   new result
-  result.db = open(filename, "", "", "")
+  result.db = open("", "", "", dbConn)
 
 # actions
 proc `$` *(i: uint): string {.inline.} =
   $uint64(i)
 
-proc shorten*(database: Database, orig_url: string): string {.raises: [DbError,
-    ValueError].} =
+proc shorten*(database: Database, orig_url: string): string =
   if orig_url.len > 3:
     # search for original url in database and return its shortcode
     result = database.db.getValue(
@@ -42,3 +41,11 @@ proc shorten*(database: Database, orig_url: string): string {.raises: [DbError,
   # only accept urls that are longer than 3 characters
   else:
     raise newException(ValueError, "Please specify an url that's longer than 3 characters.")
+
+proc getOrigUrl*(database: Database, shortcode: string): string =
+  result = database.db.getValue(sql"SELECT orig_url FROM Url WHERE shortcode=?",
+      parseInt(shortcode))
+  if result.len == 0:
+    raise newException(ValueError, "URL not found")
+
+
