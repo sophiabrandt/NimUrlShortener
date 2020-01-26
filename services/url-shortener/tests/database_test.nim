@@ -13,13 +13,13 @@ when isMainModule:
     except:
       doAssert false
 
-  # proc shorten : success case: should return the shortcode of the original url
+  # proc shorten : success case: should return the id of the original url
   block:
-    # original url does NOT exist, shorten proc should return a new shortcode
+    # original url does NOT exist, shorten proc should return a new id
     doAssert db.shorten("http://example.com") == "1"
-    # original url already exists, shorten proc should return the same shortcode as before
+    # original url already exists, shorten proc should return the same id as before
     doAssert db.shorten("http://example.com") == "1"
-    # next original url should return a new autoincremented shortcode
+    # next original url should return a new autoincremented id
     doAssert db.shorten("http://abcd.com") == "2"
 
   # proc getOrigUrl : success case

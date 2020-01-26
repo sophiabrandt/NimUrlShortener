@@ -2,7 +2,7 @@ import db_postgres, strutils, os
 
 type
   Url* = object
-    shortcode*: int
+    id*: int
     orig_url*: string
 
 type
@@ -16,12 +16,16 @@ proc close*(database: Database) =
 proc setup*(database: Database) =
   database.db.exec(sql"""
     CREATE TABLE IF NOT EXISTS Url(
-      shortcode SERIAL PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       orig_url VARCHAR(255) NOT NULL
     );
   """)
 
-proc newDatabase*(dbConn = os.getEnv("DATABASE_CONN")): Database =
+var nimEnv = os.getEnv("NIM_ENV")
+var databaseConn = if nimEnv == "development": os.getEnv(
+    "DATABASE_DEV_CONN") else: os.getEnv("DATABASE_PROD_CONN")
+
+proc newDatabase*(dbConn = databaseConn): Database =
   new result
   result.db = open("", "", "", dbConn)
 
@@ -31,9 +35,9 @@ proc `$` *(i: uint): string {.inline.} =
 
 proc shorten*(database: Database, orig_url: string): string =
   if orig_url.len > 3:
-    # search for original url in database and return its shortcode
+    # search for original url in database and return its id
     result = database.db.getValue(
-        sql"SELECT shortcode FROM Url where orig_url=?", orig_url)
+        sql"SELECT id FROM Url where orig_url=?", orig_url)
     # if not found, add original url to database
     if result.len == 0:
       result = $database.db.insertID(
@@ -42,9 +46,9 @@ proc shorten*(database: Database, orig_url: string): string =
   else:
     raise newException(ValueError, "Please specify an url that's longer than 3 characters.")
 
-proc getOrigUrl*(database: Database, shortcode: string): string =
-  result = database.db.getValue(sql"SELECT orig_url FROM Url WHERE shortcode=?",
-      parseInt(shortcode))
+proc getOrigUrl*(database: Database, id: string): string =
+  result = database.db.getValue(sql"SELECT orig_url FROM Url WHERE id=?",
+      id)
   if result.len == 0:
     raise newException(ValueError, "URL not found")
 

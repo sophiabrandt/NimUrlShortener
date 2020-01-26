@@ -5,7 +5,7 @@ author = "Sophia Brandt"
 description = "Nim URL Shortener"
 license = "MIT"
 srcDir = "src"
-bin = @["src/urlShortener"]
+bin = @["urlShortener"]
 skipext = @["nim"]
 
 
