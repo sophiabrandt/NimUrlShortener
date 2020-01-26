@@ -63,7 +63,7 @@ Twitter: [@hisophiabrandt](https://twitter.com/hisophiabrandt)
 
 - [Nim Days](https://github.com/xmonader/nimdays) by Ahmed Thabet
 - [Nim in Action](https://www.manning.com/books/nim-in-action) by [Dominik Picheta](https://github.com/dom96/)
-- [Fronet-End Challenges Club](https://front-end-challenges.club/) by Andy Bell
+- [Front-End Challenges Club](https://front-end-challenges.club/) by Andy Bell
 
 [contributors-shield]: https://img.shields.io/github/contributors/sophiabrandt/NimUrlShortener.svg?style=flat-square
 [contributors-url]: https://github.com/sophiabrandt/NimUrlShortener/graphs/contributors
