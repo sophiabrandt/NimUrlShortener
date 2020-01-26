@@ -29,7 +29,7 @@ test-url-shortener:
   services:
     - postgres:latest
   variables:
-    POSTGRES_DB: url-shortener
+    POSTGRES_DB: url_shortener_test
     POSTGRES_USER: runner
     POSTGRES_PASSWORD: ""
     DATABASE_TEST_CONN: postgres://runner@postgres:5432/url_shortener_test
