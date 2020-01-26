@@ -16,6 +16,7 @@ services:
       - DATABASE_DEV_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_dev
       - DATABASE_TEST_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_test
       - DATABASE_PROD_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_prod
+    entrypoint: ['/usr/src/app/entrypoint.sh']
     depends_on:
       - url-shortener-db
 

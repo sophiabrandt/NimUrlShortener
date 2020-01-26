@@ -11,12 +11,8 @@ WORKDIR /usr/src/app
 # copy app
 COPY . .
 
-# entrypoint.sh
-RUN chmod +x /usr/src/app/entrypoint.sh
-
 # Nim environment
 ENV NIM_ENV=production
 
 # RUN script
-ENTRYPOINT ["./entrypoint.sh"]
-CMD ["-d:release"]
+CMD nimble c -ry -d:release src/urlShortener
