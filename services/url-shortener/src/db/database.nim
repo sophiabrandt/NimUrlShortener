@@ -1,4 +1,4 @@
-import db_postgres, strutils, os
+import db_postgres, os
 
 type
   Url* = object

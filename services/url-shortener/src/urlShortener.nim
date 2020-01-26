@@ -19,6 +19,7 @@ routes:
     resp renderMain(renderId(id))
 
   get "/@id":
+    cond '.' notin @"id"
     let orig_url = db.getOrigUrl(@"id")
     if orig_url.len == 0:
       halt "URL not found"

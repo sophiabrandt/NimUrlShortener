@@ -7,11 +7,14 @@
   <head>
     <title>Nim URL Shortener</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico">
   </head>
   <body>
-    <div id="main">
+    <main class="center text-center">
+      <div class="[ flow ]">
       ${body}
-    </div>
+      </div>
+    </main>
   </body>
 
 </html>
