@@ -12,6 +12,7 @@ services:
       - 5001:5000
     environment:
       - NIM_ENV=development
+      - DB_NAME=url-shortener-db
       - DATABASE_DEV_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_dev
       - DATABASE_TEST_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_test
       - DATABASE_PROD_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_prod
