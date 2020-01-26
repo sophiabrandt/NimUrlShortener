@@ -32,7 +32,7 @@ test-url-shortener:
     POSTGRES_DB: url-shortener
     POSTGRES_USER: runner
     POSTGRES_PASSWORD: ""
-    DATABASE_TEST_URL: postgres://runner@postgres:5432/url-shortener
+    DATABASE_TEST_CONN: postgres://runner@postgres:5432/url-shortener
     NIM_ENV: development
   script:
     - cd /usr/src/app
