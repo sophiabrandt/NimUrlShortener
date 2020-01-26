@@ -17,4 +17,4 @@ ARG NIM_ENV=production
 ENV NIM_ENV $NIM_ENV
 
 # RUN script
-CMD ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
