@@ -18,4 +18,3 @@ ENV NIM_ENV $NIM_ENV
 
 # RUN script
 ENTRYPOINT ["./entrypoint.sh"]
-CMD nimble c -ry src/urlShortener

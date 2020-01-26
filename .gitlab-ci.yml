@@ -13,7 +13,6 @@ build:
     - docker:dind
   variables:
     DOCKER_DRIVER: overlay2
-    NIM_ENV: production
     DB_NAME: url-shortener-db
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
@@ -36,7 +35,7 @@ test-url-shortener:
     POSTGRES_PASSWORD: ""
     DATABASE_TEST_CONN: postgres://runner@postgres:5432/url_shortener_test
     DB_NAME: postgres
-    NIM_ENV: development
+    NIM_ENV: testing
   script:
     - cd /usr/src/app
     - nimble c -ry tests/database_test.nim

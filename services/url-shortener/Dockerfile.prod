@@ -15,8 +15,7 @@ COPY . .
 RUN chmod +x /usr/src/app/entrypoint.sh
 
 # Nim environment
-ARG NIM_ENV=production
-ENV NIM_ENV $NIM_ENV
+ENV NIM_ENV=production
 
 # RUN script
 ENTRYPOINT ["./entrypoint.sh"]

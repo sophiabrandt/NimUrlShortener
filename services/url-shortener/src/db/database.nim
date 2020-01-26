@@ -22,8 +22,14 @@ proc setup*(database: Database) =
   """)
 
 var nimEnv = os.getEnv("NIM_ENV")
-var databaseConn = if nimEnv == "development": os.getEnv(
-    "DATABASE_DEV_CONN") else: os.getEnv("DATABASE_PROD_CONN")
+var databaseConn =
+  case nimEnv:
+    of "development":
+      os.getEnv("DATABASE_DEV_CONN")
+    of "testing":
+      os.getEnv("DATABASE_TEST_CONN")
+    else:
+      os.getEnv("DATABASE_PROD_CONN")
 
 proc newDatabase*(dbConn = databaseConn): Database =
   new result
