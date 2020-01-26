@@ -7,7 +7,7 @@ when isMainModule:
   # proc shorten: failure case: there should be a `ValueError` if the original url is too short
   block:
     try:
-      discard db.shorten("abc")
+      discard db.shorten("http://abc")
     except ValueError:
       doAssert true
     except:

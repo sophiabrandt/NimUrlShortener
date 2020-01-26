@@ -40,7 +40,7 @@ proc `$` *(i: uint): string {.inline.} =
   $uint64(i)
 
 proc shorten*(database: Database, orig_url: string): string =
-  if orig_url.len > 3:
+  if orig_url.len > 10:
     # search for original url in database and return its id
     result = database.db.getValue(
         sql"SELECT id FROM Url where orig_url=?", orig_url)
@@ -48,9 +48,9 @@ proc shorten*(database: Database, orig_url: string): string =
     if result.len == 0:
       result = $database.db.insertID(
           sql"INSERT INTO Url (orig_url) VALUES (?)", orig_url)
-  # only accept urls that are longer than 3 characters
+  # only accept urls that are longer than 10 characters
   else:
-    raise newException(ValueError, "Please specify an url that's longer than 3 characters.")
+    raise newException(ValueError, "Please specify an url that's longer than 10 characters.")
 
 proc getOrigUrl*(database: Database, id: string): string =
   result = database.db.getValue(sql"SELECT orig_url FROM Url WHERE id=?",
