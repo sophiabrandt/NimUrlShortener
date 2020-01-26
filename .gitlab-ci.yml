@@ -26,6 +26,14 @@ build:
 test-url-shortener:
   stage: test-url-shortener
   image: $IMAGE:url-shortener-latest
+  services:
+    - postgres:latest
+  variables:
+    POSTGRES_DB: url-shortener
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: ""
+    DATABASE_TEST_URL: postgres://runner@postgres:5432/url-shortener
+    NIM_ENV: development
   script:
     - cd /usr/src/app
     - nimble c -ry tests/database_test.nim
