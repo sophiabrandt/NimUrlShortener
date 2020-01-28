@@ -6,6 +6,7 @@ services:
     build:
       context: ./services/url-shortener
       dockerfile: Dockerfile
+    entrypoint: ['/usr/src/app/entrypoint.sh']
     volumes:
       - './services/url-shortener:/usr/src/app:delegated'
     ports:

@@ -8,6 +8,9 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
+# install dependencies
+RUN nimble refresh && nimble install jester
+
 # add entrypoint.sh
 COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 RUN chmod +x /usr/src/app/entrypoint.sh
@@ -15,6 +18,3 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 # Nim environment
 ARG NIM_ENV=production
 ENV NIM_ENV $NIM_ENV
-
-# RUN script
-CMD nimble c -ry src/urlShortener

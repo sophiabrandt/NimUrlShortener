@@ -8,6 +8,10 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
+# install dependencies
+COPY ./urlShortener.nimble .
+RUN nimble refresh && nimble install jester
+
 # copy app
 COPY . .
 
