@@ -33,9 +33,22 @@ git clone git@github.com:sophiabrandt/NimUrlShortener.git
 
 ## Usage
 
+Move into the cloned folder and spin up the docker containers:
+
 ```bash
 cd NimUrlShortener
 docker-compose up --build
+```
+
+Visit `http://localhost:5001` in your browser.
+
+### Tests
+
+Start the docker containers in the background, then run the test with `nimble`:
+
+```bash
+docker-compose up -d
+docker-compose exec url-shortener nimble c -r src/database_test
 ```
 
 ## Contributing
