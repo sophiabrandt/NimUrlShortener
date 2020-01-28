@@ -48,9 +48,5 @@ proc shorten*(database: Database, orig_url: string): string =
     result = $database.db.insertID(sql"INSERT INTO Url (orig_url) VALUES (?)", orig_url)
 
 proc getOrigUrl*(database: Database, id: string): string =
-  result = database.db.getValue(sql"SELECT orig_url FROM Url WHERE id=?",
+  database.db.getValue(sql"SELECT orig_url FROM Url WHERE id=?",
       id)
-  if result.len == 0:
-    raise newException(ValueError, "URL not found")
-
-

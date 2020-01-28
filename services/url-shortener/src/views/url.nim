@@ -50,3 +50,12 @@
   <div aria-atomic="true" role="alert" class="input__alert"></div>
 </main>
 #end proc
+#
+#proc renderNotFound*(): string =
+#  result = ""
+<div>
+  <h1>URL not found.</h1>
+  <hr>
+  <p><a href="/">⬅️ Back to Homepage</a></p>
+</div>
+#end proc
