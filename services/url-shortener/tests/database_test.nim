@@ -4,16 +4,7 @@ when isMainModule:
   var db = newDatabase(os.getEnv("DATABASE_TEST_CONN"))
   db.setup()
 
-  # proc shorten: failure case: there should be a `ValueError` if the original url is too short
-  block:
-    try:
-      discard db.shorten("http://abc")
-    except ValueError:
-      doAssert true
-    except:
-      doAssert false
-
-  # proc shorten : success case: should return the id of the original url
+  # proc shorten : should return the id of the original url
   block:
     # original url does NOT exist, shorten proc should return a new id
     doAssert db.shorten("http://example.com") == "1"
