@@ -9,6 +9,7 @@ RUN apt-get update && \
 WORKDIR /usr/src/app
 
 # install dependencies
+COPY ./urlShortener.nimble .
 RUN nimble refresh && nimble install jester
 
 # add entrypoint.sh
