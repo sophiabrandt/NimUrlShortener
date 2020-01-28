@@ -2,9 +2,19 @@
 #import xmltree
 #
 #proc renderId*(id: string): string =
+# let successIconPath = "M19.293 5.293L9 15.586l-4.293-4.293a.999.999 0 10-1.414 1.414l5 5a.999.999 0 001.414 0l11-11a.999.999 0 10-1.414-1.414z"
 #  result = ""
-<div id="url">
-  <p>Your shortlink: <strong><a href="${id}">${id}</a></strong></p>
+<div id="shortened-url">
+  <figure class="alert" data-state="success">
+    <svg class="alert__icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="1em" height="1em" viewBox="0 0 24 24">
+      <path fill="currentColor" d="${successIconPath}"/>
+    </svg>
+    <div ="alert__content">
+      <p><b>Success!</b></p>
+      <p>Your shortlink is:</p>
+      <p><strong><a href="${id}">${id}</a></strong></p>
+    </div>
+  </figure>
 </div>
 <div>
   <a href="/">← Back to Homepage</a>
@@ -13,12 +23,12 @@
 #
 #proc renderShortenUrl*(): string = 
 #  result = ""
-<h1 class="input__heading">Create a new short URL</h1>
-<div id="newUrl">
+<main class="[ input ]" id="newUrl">
+  <h1 class="input__heading">Create a new short URL</h1>
   <form id="inputForm" action="shortenurl" method="post" class="[ input__form ] [ flow ]">
     <label for="input">Shorten URL</label>
       <div class="inline-field-control">
-        <input type="url" name="orig_url" required>
+        <input type="url" id="url" name="orig_url" required>
         <button type="submit" class="button" value="shorten">
             <span class="visually-hidden">Shorten URL</span>
             <svg
@@ -37,5 +47,6 @@
           </button>
       </div>
   </form>
-</div>
+  <div aria-atomic="true" role="alert" class="input__alert"></div>
+</main>
 #end proc

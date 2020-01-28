@@ -7,6 +7,10 @@
   --color-bg: #ffecd4;
   --color-text: #485a74;
   --color-light: #f3f3f3;
+  --color-success: #067973;
+  --color-success-bg: #f5fffe;
+  --color-error: #b71540;
+  --color-error-bg: #fdeff3;
   --color-shadow: rgba(23, 11, 41, 0.12);
   --font-base-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
@@ -24,6 +28,8 @@
  */
 body {
   font-family: var(--font-base-family, sans-serif);
+  display: grid;
+  place-items: center;
   background: var(--color-light);
   color: var(--color-text);
   padding: var(--metric-gutter, 2rem);
@@ -167,4 +173,43 @@ button {
 
 .button svg {
   transform: translateY(1px); /* Optical adjustment */
+}
+
+/** 
+ * ALERT COMPONENT
+ */
+.alert {
+  --alert-text: var(--color-text);
+  --alert-bg: var(--color-bg);
+
+  display: flex;
+  align-items: flex-start;
+  background: var(--alert-bg);
+  color: var(--alert-text);
+  border: 1px solid;
+  padding: var(--metric-box-padding);
+  margin-top: 1rem;
+}
+
+.alert[data-state='error'] {
+  --alert-text: var(--color-error);
+  --alert-bg: var(--color-error-bg);
+}
+
+.alert[data-state='success'] {
+  --alert-text: var(--color-success);
+  --alert-bg: var(--color-success-bg);
+}
+
+.alert__icon {
+  font-size: 1.6em;
+  flex-shrink: 0;
+}
+
+.alert__content {
+  padding-left: 0.8rem;
+}
+
+.alert__content b {
+  display: block;
 }
