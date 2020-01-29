@@ -19,4 +19,4 @@ COPY . .
 ENV NIM_ENV=production
 
 # RUN script
-CMD nimble c -ry -d:release src/urlShortener
+CMD ["-d:release"]

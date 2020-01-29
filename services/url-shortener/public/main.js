@@ -33,6 +33,7 @@ const init = () => {
   )
 
   urlElement && urlElement.removeAttribute('required')
+  urlElement && urlElement.removeAttribute('pattern')
   formElement && formElement.setAttribute('novalidate', '')
 
   formElement &&
