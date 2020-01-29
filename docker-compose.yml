@@ -18,7 +18,8 @@ services:
       - DATABASE_TEST_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_test
       - DATABASE_PROD_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_prod
     depends_on:
-      - url-shortener-db
+      url-shortener-db:
+        condition: service_healthy
 
   url-shortener-db:
     build:
@@ -29,3 +30,5 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1

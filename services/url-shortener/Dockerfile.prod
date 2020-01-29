@@ -14,6 +14,7 @@ RUN nimble refresh && nimble install jester
 
 # copy app
 COPY . .
+RUN chmod +x entrypoint.sh
 
 # Nim environment
 ENV NIM_ENV=production
