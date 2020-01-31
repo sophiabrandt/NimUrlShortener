@@ -12,7 +12,6 @@ services:
     ports:
       - 5001:5000
     environment:
-      - NIM_PORT=5000
       - NIM_ENV=development
       - DB_NAME=url-shortener-db
       - DATABASE_DEV_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_dev
