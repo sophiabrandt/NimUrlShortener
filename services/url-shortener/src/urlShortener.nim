@@ -1,4 +1,4 @@
-import asyncdispatch
+import asyncdispatch, os
 
 import jester
 

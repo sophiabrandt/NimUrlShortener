@@ -12,9 +12,12 @@ WORKDIR /usr/src/app
 COPY ./urlShortener.nimble .
 RUN nimble refresh && nimble install jester
 
+# copy entrypoint, make executable
+COPY ./entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
 # copy app
 COPY . .
-RUN chmod +x entrypoint.sh
 
 # Nim environment
 ENV NIM_ENV=production
