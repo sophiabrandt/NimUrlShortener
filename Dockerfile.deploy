@@ -20,6 +20,6 @@ COPY ./services/url-shortener/ .
 ENV NIM_ENV=production
 
 # run server
-CMD nimble c -ry src/urlShortener && \
+CMD nimble c -ry -d:release src/urlShortener && \
       sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
       nginx -g 'daemon off;'
