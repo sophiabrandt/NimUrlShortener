@@ -3,6 +3,7 @@ image: docker:stable
 stages:
   - build-url-shortener
   - test-url-shortener
+  - build-heroku
 
 variables:
   IMAGE: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
@@ -39,3 +40,27 @@ test-url-shortener:
   script:
     - cd /usr/src/app
     - nimble c -ry tests/database_test.nim
+
+build-heroku:
+  stage: build-heroku
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    HEROKU_APP_NAME: obscure-chamber-78463
+    HEROKU_REGISTRY_IMAGE: registry.heroku.com/${HEROKU_APP_NAME}/web
+  script:
+    - apk add --no-cache curl
+    - chmod +x ./release.sh
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    - docker pull $IMAGE:url-shortener-deploy || true
+    - docker build
+        --cache-from $IMAGE:url-shortener-deploy
+        --tag $IMAGE:url-shortener-deploy
+        --tag $HEROKU_REGISTRY_IMAGE
+        --file ./Dockefile-deploy
+        "."
+    - docker push $IMAGE:url-shortener-deploy
+    - echo -n $HEROKU_AUTH_TOKEN | docker login -u _ --password-stdin registry.heroku.com
+    - docker push $HEROKU_REGISTRY_IMAGE
+    - ./release.sh
