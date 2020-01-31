@@ -58,7 +58,7 @@ build-heroku:
         --cache-from $IMAGE:url-shortener-deploy
         --tag $IMAGE:url-shortener-deploy
         --tag $HEROKU_REGISTRY_IMAGE
-        --file ./Dockefile.deploy
+        --file ./Dockerfile.deploy
         "."
     - docker push $IMAGE:url-shortener-deploy
     - echo -n $HEROKU_AUTH_TOKEN | docker login -u _ --password-stdin registry.heroku.com
