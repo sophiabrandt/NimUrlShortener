@@ -1,11 +1,12 @@
-import asyncdispatch, os
-
-import jester
+import asyncdispatch, jester, strutils, os
 
 import db/database, views/url, views/general
 
 let db = newDatabase()
 db.setup()
+
+settings:
+  port = Port(parseInt(os.getEnv("PORT")))
 
 routes:
   get "/":

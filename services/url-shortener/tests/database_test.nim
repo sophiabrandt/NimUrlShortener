@@ -1,7 +1,7 @@
 import database, os
 
 when isMainModule:
-  var db = newDatabase(os.getEnv("DATABASE_TEST_CONN"))
+  var db = newDatabase(os.getEnv("DATABASE_TEST_URL"))
   db.setup()
 
   # proc shorten : should return the id of the original url

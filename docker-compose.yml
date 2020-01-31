@@ -10,13 +10,13 @@ services:
     volumes:
       - './services/url-shortener:/usr/src/app:delegated'
     ports:
-      - 5001:5000
+      - 5001:7777
     environment:
       - NIM_ENV=development
+      - PORT=7777
       - DB_NAME=url-shortener-db
-      - DATABASE_DEV_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_dev
-      - DATABASE_TEST_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_test
-      - DATABASE_PROD_CONN=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_prod
+      - DATABASE_URL=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_dev
+      - DATABASE_TEST_URL=postgresql://postgres:postgres@url-shortener-db:5432/url_shortener_test
     depends_on:
       url-shortener-db:
         condition: service_healthy
