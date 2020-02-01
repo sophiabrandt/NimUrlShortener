@@ -9,9 +9,11 @@
 
 **Nim URL Shortener** is a web application that allows you to do shorten an URL - similar to popular services like [bit.ly](https://bitly.com/) or [TinyURL](https://tinyurl.com/).
 
-<!-- GIF Demo / Screenshot here -->
-
 This is a learning project to improve my knowledge of **[Nim][nim]**.
+
+[![screenshot](screenshot.png)][livedemo]
+
+You can see a **[LIVE DEMO on Heroku][livedemo]**.
 
 ## Built With
 
@@ -20,7 +22,7 @@ This is a learning project to improve my knowledge of **[Nim][nim]**.
 
 ## Installation
 
-The project uses [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/).
+The project uses [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). Developed on a Linux machine.
 
 - docker-compose version 1.25.2
 - Docker version 19.03
@@ -86,3 +88,4 @@ Twitter: [@hisophiabrandt](https://twitter.com/hisophiabrandt)
 [license-url]: https://github.com/sophiabrandt/NimUrlShortener/LICENSE
 [pipeline-shield]: https://gitlab.com/sophiabrandt/NimUrlShortener/badges/master/pipeline.svg
 [pipeline-url]: https://gitlab.com/sophiabrandt/NimUrlShortener/commits/master
+[livedemo]: https://obscure-chamber-78463.herokuapp.com/

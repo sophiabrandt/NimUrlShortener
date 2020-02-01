@@ -32,6 +32,9 @@ routes:
       halt "Something went wrong"
     corsResp(Http200, renderMain(renderId(id)))
 
+  get "/shortenurl":
+    redirect "/"
+
   get "/@id":
     cond '.' notin @"id"
     let orig_url = db.getOrigUrl(@"id")
