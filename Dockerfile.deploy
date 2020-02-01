@@ -8,10 +8,6 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
-# install dependencies
-COPY ./services/url-shortener/urlShortener.nimble .
-RUN nimble refresh && nimble install jester nimassets
-
 # copy app and nginx, make static files readable
 COPY ./services/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./services/url-shortener/ .

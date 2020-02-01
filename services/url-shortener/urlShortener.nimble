@@ -12,4 +12,4 @@ skipext = @["nim"]
 
 # Dependencies
 
-requires "nim >= 1.0.4", "jester >= 0.4.3", "nimassets >= 0.1.0"
+requires "nim >= 1.0.4", "jester >= 0.4.3"

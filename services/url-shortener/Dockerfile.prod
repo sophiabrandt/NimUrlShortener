@@ -8,10 +8,6 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
-# install dependencies
-COPY ./urlShortener.nimble .
-RUN nimble refresh && nimble install jester nimassets
-
 # copy entrypoint, make executable
 COPY ./entrypoint.sh .
 RUN chmod +x entrypoint.sh
