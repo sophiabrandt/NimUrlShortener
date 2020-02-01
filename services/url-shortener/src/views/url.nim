@@ -28,7 +28,7 @@
   <form id="inputForm" action="shortenurl" method="post" class="[ input__form ] [ flow ]">
     <label for="input">Shorten URL</label>
       <div class="inline-field-control">
-        <input type="url" id="url" name="orig_url" pattern="(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})" required>
+        <input type="url" id="url" name="orig_url" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" required>
         <button type="submit" class="button" value="shorten">
             <span class="visually-hidden">Shorten URL</span>
             <svg
