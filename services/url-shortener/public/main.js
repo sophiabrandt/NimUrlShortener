@@ -31,7 +31,6 @@ const init = () => {
     '(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})',
     'i'
   )
-  console.log(validationRegex.test("http://test.com"))
 
   urlElement && urlElement.removeAttribute('required')
   urlElement && urlElement.removeAttribute('pattern')
