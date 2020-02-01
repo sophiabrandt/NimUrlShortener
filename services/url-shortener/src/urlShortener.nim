@@ -1,6 +1,6 @@
 import asyncdispatch, jester, strutils, os
 
-import db/database, views/url, views/general
+import db/database, views/url, views/general, views/static_assets
 
 let db = newDatabase()
 db.setup()
@@ -15,6 +15,15 @@ template corsResp(code, message: untyped): untyped =
 routes:
   get "/":
     corsResp(Http200, renderMain(renderShortenUrl()))
+
+  get "/favicon.ico":
+    corsResp(Http200, ico)
+
+  get "/style.css":
+    corsResp(Http200, css)
+
+  get "/main.js":
+    corsResp(Http200, js)
 
   post "/shortenurl":
     let orig_url = @"orig_url"

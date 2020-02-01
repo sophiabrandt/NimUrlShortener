@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 COPY ./services/url-shortener/urlShortener.nimble .
 RUN nimble refresh && nimble install jester
 
-# copy app and nginx
+# copy app and nginx, make static files readable
 COPY ./services/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./services/url-shortener/ .
 

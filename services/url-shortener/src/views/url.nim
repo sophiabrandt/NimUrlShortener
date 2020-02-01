@@ -17,7 +17,7 @@
   </figure>
 </div>
 <div>
-  <a href="/">← Back to Homepage</a>
+  <a href="/">👈 Back to Homepage</a>
 </div>
 #end proc
 #
