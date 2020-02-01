@@ -28,7 +28,7 @@ const init = () => {
   const formElement = document.querySelector('#inputForm')
   const alertElement = document.querySelector('[role="alert"]')
   const validationRegex = new RegExp(
-    'https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)',
+    'https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)',
     'i'
   )
 
