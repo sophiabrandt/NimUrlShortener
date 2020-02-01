@@ -19,12 +19,6 @@ routes:
   get "/favicon.ico":
     corsResp(Http200, ico)
 
-  get "/style.css":
-    corsResp(Http200, css)
-
-  get "/main.js":
-    corsResp(Http200, js)
-
   post "/shortenurl":
     let orig_url = @"orig_url"
     let id = db.shorten(orig_url)

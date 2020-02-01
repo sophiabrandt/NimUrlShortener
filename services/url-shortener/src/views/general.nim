@@ -1,4 +1,8 @@
 #? stdtmpl(subsChar = '$', metaChar = '#')
+#import assetsfile
+#
+#let css = assetsfile.getAsset("public/style.css")
+#let js = assetsfile.getAsset("public/main.js")
 #
 #proc renderMain*(body: string): string =
 #  result = ""
@@ -10,9 +14,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Nim URL Shortener</title>
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" href="favicon.ico">
-    <script type="text/javascript" src="main.js" async></script>
+    <style type="text/css">${css}</style>
   </head>
   <body>
     <div class="center text-center">
@@ -20,7 +23,7 @@
       ${body}
       </div>
     </div>
+    <script type="text/javascript">${js}</script>
   </body>
-
 </html>
 #end proc
