@@ -1,6 +1,6 @@
 # Package
 
-version = "1.0.0"
+version = "1.1.0"
 author = "Sophia Brandt"
 description = "Nim URL Shortener"
 license = "MIT"
@@ -12,4 +12,4 @@ skipext = @["nim"]
 
 # Dependencies
 
-requires "nim >= 1.0.4", "jester >= 0.4.3"
+requires "nim >= 1.0.4", "jester >= 0.4.3", "nimassets >= 0.1.0"

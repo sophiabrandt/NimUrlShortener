@@ -67,6 +67,10 @@ button {
   }
 }
 
+a {
+  color: var(--color-secondary);
+}
+
 /**
  * FLOW UTILITY
  */
