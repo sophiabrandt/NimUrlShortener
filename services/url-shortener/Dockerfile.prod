@@ -8,17 +8,24 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
+# add user
+RUN addgroup --system nim && adduser --system --group nim
+RUN chown -R nim:nim /usr/src/app && chmod -R 755 /usr/src/app
+
 # Nim environment
 ENV NIM_ENV=production
+ENV NIMBLE_DIR=/home/nim/.nimble
+ENV PATH=$PATH:/home/nim/.nimble/bin
 
 # copy entrypoint, make executable
 COPY ./entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
 # install dependencies, bundle assets, compile
-ENV NIMBLE_DIR=/home/nim/.nimble
-ENV PATH=$PATH:/home/nim/.nimble/bin
 RUN nimble refresh && nimble install nimassets jester
 COPY . .
 RUN nimassets -d=public -o=src/views/assetsfile.nim && \
         nimble c -d:release src/urlShortener
+
+# switch to non-root user
+USER nim

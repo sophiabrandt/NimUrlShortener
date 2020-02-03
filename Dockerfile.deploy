@@ -6,21 +6,29 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends libpq-dev nginx
 
 # set working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Nim environment
-ENV NIM_ENV=production
+# add user
+RUN addgroup --system nginx && adduser --system --no-create-home --group nginx
 
 # install dependencies, bundle assets, compile
+ENV NIM_ENV=production
 ENV NIMBLE_DIR=/home/nim/.nimble
 ENV PATH=$PATH:/home/nim/.nimble/bin
 RUN nimble refresh && nimble install nimassets jester
 
 # copy app and nginx, bundle assets and compile
+COPY ./services/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./services/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./services/url-shortener/ .
 RUN nimassets -d=public -o=src/views/assetsfile.nim && \
         nimble c src/urlShortener
+
+# add permissions for nginx user
+RUN chown -R nginx:nginx /app && chmod -R 755 /app
+RUN touch /var/run/nginx.pid && \
+        chown -R nginx:nginx /var/run/nginx.pid
+USER nginx
 
 # run server
 CMD ./src/urlShortener && \
