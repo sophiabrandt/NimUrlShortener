@@ -16,12 +16,13 @@ ENV NIMBLE_DIR=/home/nim/.nimble
 ENV PATH=$PATH:/home/nim/.nimble/bin
 RUN nimble refresh && nimble install nimassets jester
 
-# copy app and nginx, make static files readable
+# copy app and nginx, bundle assets and compile
 COPY ./services/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./services/url-shortener/ .
+RUN nimassets -d=public -o=src/views/assetsfile.nim && \
+        nimble c src/urlShortener
 
 # run server
-CMD nimassets -d=public -o=src/views/assetsfile.nim && \
-    nimble c -ry -d:release src/urlShortener && \
+CMD ./src/urlShortener && \
     sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
     nginx -g 'daemon off;'

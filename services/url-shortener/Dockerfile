@@ -20,3 +20,6 @@ RUN chmod +x entrypoint.sh
 ENV NIMBLE_DIR=/home/nim/.nimble
 ENV PATH=$PATH:/home/nim/.nimble/bin
 RUN nimble refresh && nimble install nimassets jester
+COPY . .
+RUN nimassets -d=public -o=src/views/assetsfile.nim && \
+        nimble c src/urlShortener
