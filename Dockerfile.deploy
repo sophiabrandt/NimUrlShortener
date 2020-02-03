@@ -8,14 +8,20 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
+# Nim environment
+ENV NIM_ENV=production
+
+# install dependencies, bundle assets, compile
+ENV NIMBLE_DIR=/home/nim/.nimble
+ENV PATH=$PATH:/home/nim/.nimble/bin
+RUN nimble refresh && nimble install nimassets jester
+
 # copy app and nginx, make static files readable
 COPY ./services/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./services/url-shortener/ .
 
-# Nim environment
-ENV NIM_ENV=production
-
 # run server
-CMD nimble c -ry -d:release src/urlShortener && \
-      sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
-      nginx -g 'daemon off;'
+CMD nimassets -d=public -o=src/views/assetsfile.nim && \
+    nimble c -ry -d:release src/urlShortener && \
+    sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && \
+    nginx -g 'daemon off;'

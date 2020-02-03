@@ -8,10 +8,15 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
-# entrypoint
-COPY ./entrypoint.sh .
-RUN chmod +x entrypoint.sh
-
 # Nim environment
 ARG NIM_ENV=production
 ENV NIM_ENV $NIM_ENV
+
+# make entrypoint executable
+COPY ./entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
+# install dependencies, bundle assets, compile
+ENV NIMBLE_DIR=/home/nim/.nimble
+ENV PATH=$PATH:/home/nim/.nimble/bin
+RUN nimble refresh && nimble install nimassets jester

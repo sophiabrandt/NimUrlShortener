@@ -9,4 +9,5 @@ done
 echo "PostgreSQL started"
 
 # run server
-nimble c -ry src/urlShortener
+nimassets -d=public -o=src/views/assetsfile.nim && \
+  nimble c -ry src/urlShortener
