@@ -50,7 +50,7 @@ Start the docker containers in the background, then run the test with `nimble`:
 
 ```bash
 docker-compose up -d
-docker-compose exec url-shortener nimble c -r src/database_test
+docker-compose exec url-shortener nimble c -r tests/database_test
 ```
 
 ## Contributing
