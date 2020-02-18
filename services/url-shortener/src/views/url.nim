@@ -56,6 +56,6 @@
 <div>
   <h1>URL not found.</h1>
   <hr>
-  <p><a href="/">&#x2190;a Back to Homepage</a></p>
+  <p><a href="/">&#x2190; Back to Homepage</a></p>
 </div>
 #end proc
