@@ -11,7 +11,7 @@ variables:
 build:
   stage: build-url-shortener
   services:
-    - docker:dind
+    - docker:19.03.5-dind
   variables:
     DOCKER_DRIVER: overlay2
     DB_NAME: url-shortener-db
@@ -45,7 +45,7 @@ test-url-shortener:
 build-heroku:
   stage: build-heroku
   services:
-    - docker:dind
+    - docker:19.03.5-dind
   variables:
     DOCKER_DRIVER: overlay2
     HEROKU_APP_NAME: obscure-chamber-78463
