@@ -86,6 +86,6 @@ Twitter: [@hisophiabrandt](https://twitter.com/hisophiabrandt)
 [issues-url]: https://github.com/sophiabrandt/NimUrlShortener/issues
 [license-shield]: https://img.shields.io/github/license/sophiabrandt/NimUrlShortener.svg?style=flat-square
 [license-url]: https://github.com/sophiabrandt/NimUrlShortener/LICENSE
-[pipeline-shield]: https://gitlab.com/sophiabrandt/NimUrlShortener/badges/master/pipeline.svg
+[pipeline-shield]: https://gitlab.com/sophiabrandt/NimUrlShortener/badges/master/pipeline.svg?style=flat-square
 [pipeline-url]: https://gitlab.com/sophiabrandt/NimUrlShortener/commits/master
 [livedemo]: https://obscure-chamber-78463.herokuapp.com/
