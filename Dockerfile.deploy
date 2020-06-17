@@ -1,7 +1,7 @@
 ###############
 # BUILD IMAGE #
 ###############
-FROM nimlang/nim:1.0.4-regular AS build
+FROM nimlang/nim:1.2.0-regular AS build
 
 # set working directory
 WORKDIR /usr/src/app
@@ -20,7 +20,7 @@ RUN nimassets -d=public -o=src/views/assetsfile.nim && \
 #################
 # RUNTIME IMAGE #
 #################
-FROM nginx:1.17.8 AS deploy
+FROM nginx:1.19.0 AS deploy
 
 # install dependencies
 RUN apt-get update && \

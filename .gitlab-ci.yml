@@ -11,31 +11,31 @@ variables:
 build:
   stage: build-url-shortener
   services:
-    - docker:19.03.5-dind
+    - docker:19.03.11-dind
   variables:
     DOCKER_DRIVER: overlay2
     DB_NAME: url-shortener-db
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull $IMAGE:url-shortener-latest || true
+    - docker pull $IMAGE:$CI_COMMIT_SHORT_SHA || true
     - docker build
-        --cache-from $IMAGE:url-shortener-latest
-        --tag $IMAGE:url-shortener-latest
+        --cache-from $IMAGE:$CI_COMMIT_SHORT_SHA
+        --tag $IMAGE:$CI_COMMIT_SHORT_SHA
         --file ./services/url-shortener/Dockerfile.prod
         "./services/url-shortener"
-    - docker push $IMAGE:url-shortener-latest
+    - docker push $IMAGE:$CI_COMMIT_SHORT_SHA
 
 test-url-shortener:
   stage: test-url-shortener
-  image: $IMAGE:url-shortener-latest
+  image: $IMAGE:$CI_COMMIT_SHORT_SHA
   services:
-    - postgres:latest
+    - postgres:12.3-alpine
   variables:
     POSTGRES_DB: url_shortener_test
     POSTGRES_USER: runner
     POSTGRES_PASSWORD: ""
     POSTGRES_HOST_AUTH_METHOD: trust
-    DATABASE_TEST_URL: postgres://runner@postgres:5432/url_shortener_test
+    DATABASE_TEST_URL: postgres://runner@postgres.11432/url_shortener_test
     DB_NAME: postgres
     NIM_ENV: testing
   script:
@@ -45,7 +45,7 @@ test-url-shortener:
 build-heroku:
   stage: build-heroku
   services:
-    - docker:19.03.5-dind
+    - docker:19.03.11-dind
   variables:
     DOCKER_DRIVER: overlay2
     HEROKU_APP_NAME: obscure-chamber-78463
@@ -54,23 +54,23 @@ build-heroku:
     - apk add --no-cache curl
     - chmod +x ./release.sh
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull $IMAGE:build || true
-    - docker pull $IMAGE:deploy || true
+    - docker pull $IMAGE:$CI_COMMIT_SHORT_SHA:build || true
+    - docker pull $IMAGE:$CI_COMMIT_SHORT_SHA:deploy || true
     - docker build
         --target build
-        --cache-from $IMAGE:build
-        --tag $IMAGE:build
+        --cache-from $IMAGE:$CI_COMMIT_SHORT_SHA:build
+        --tag $IMAGE:$CI_COMMIT_SHORT_SHA:build
         --file ./Dockerfile.deploy
         "."
     - docker build
         --target deploy
-        --cache-from $IMAGE:deploy
-        --tag $IMAGE:deploy
+        --cache-from $IMAGE:$CI_COMMIT_SHORT_SHA:deploy
+        --tag $IMAGE:$CI_COMMIT_SHORT_SHA:deploy
         --tag $HEROKU_REGISTRY_IMAGE
         --file ./Dockerfile.deploy
         "."
-    - docker push $IMAGE:build
-    - docker push $IMAGE:deploy
+    - docker push $IMAGE:$CI_COMMIT_SHORT_SHA:build
+    - docker push $IMAGE:$CI_COMMIT_SHORT_SHA:deploy
     - echo -n $HEROKU_AUTH_TOKEN | docker login -u _ --password-stdin registry.heroku.com
     - docker push $HEROKU_REGISTRY_IMAGE
     - ./release.sh

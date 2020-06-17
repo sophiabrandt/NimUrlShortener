@@ -1,5 +1,5 @@
 # base image
-FROM nimlang/nim:1.0.4-regular
+FROM nimlang/nim:1.2.0-regular
 
 # install dependencies
 RUN apt-get update && \
