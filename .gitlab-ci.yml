@@ -54,23 +54,23 @@ build-heroku:
     - apk add --no-cache curl
     - chmod +x ./release.sh
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull $IMAGE:$CI_COMMIT_SHORT_SHA:build || true
-    - docker pull $IMAGE:$CI_COMMIT_SHORT_SHA:deploy || true
+    - docker pull $IMAGE:build || true
+    - docker pull $IMAGE:deploy || true
     - docker build
         --target build
-        --cache-from $IMAGE:$CI_COMMIT_SHORT_SHA:build
-        --tag $IMAGE:$CI_COMMIT_SHORT_SHA:build
+        --cache-from $IMAGE:build
+        --tag $IMAGE:build
         --file ./Dockerfile.deploy
         "."
     - docker build
         --target deploy
-        --cache-from $IMAGE:$CI_COMMIT_SHORT_SHA:deploy
-        --tag $IMAGE:$CI_COMMIT_SHORT_SHA:deploy
+        --cache-from $IMAGE:deploy
+        --tag $IMAGE:deploy
         --tag $HEROKU_REGISTRY_IMAGE
         --file ./Dockerfile.deploy
         "."
-    - docker push $IMAGE:$CI_COMMIT_SHORT_SHA:build
-    - docker push $IMAGE:$CI_COMMIT_SHORT_SHA:deploy
+    - docker push $IMAGE:build
+    - docker push $IMAGE:deploy
     - echo -n $HEROKU_AUTH_TOKEN | docker login -u _ --password-stdin registry.heroku.com
     - docker push $HEROKU_REGISTRY_IMAGE
     - ./release.sh
