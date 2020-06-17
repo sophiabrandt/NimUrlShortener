@@ -1,4 +1,4 @@
-image: docker:stable
+image: docker:19.03.11
 
 stages:
   - build-url-shortener
