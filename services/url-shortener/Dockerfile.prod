@@ -1,9 +1,12 @@
 # base image
-FROM nimlang/nim:1.2.0-regular
+FROM nimlang/nim:1.2.6-regular
 
 # install dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libpq-dev netcat-openbsd
+    apt-get install -y --no-install-recommends libpq-dev netcat-openbsd && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 
 # set working directory
 WORKDIR /usr/src/app
@@ -23,7 +26,7 @@ RUN chmod +x entrypoint.sh
 
 # install dependencies, bundle assets, compile
 RUN nimble refresh && nimble install nimassets jester
-COPY . .
+COPY --chown=nim:nim . .
 RUN nimassets -d=public -o=src/views/assetsfile.nim && \
         nimble c -d:release src/urlShortener
 

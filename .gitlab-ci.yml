@@ -17,19 +17,19 @@ build:
     DB_NAME: url-shortener-db
   script:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
-    - docker pull $IMAGE:$CI_COMMIT_SHORT_SHA || true
+    - docker pull $IMAGE:prod || true
     - docker build
-        --cache-from $IMAGE:$CI_COMMIT_SHORT_SHA
-        --tag $IMAGE:$CI_COMMIT_SHORT_SHA
+        --cache-from $IMAGE:prod
+        --tag $IMAGE:prod
         --file ./services/url-shortener/Dockerfile.prod
         "./services/url-shortener"
-    - docker push $IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $IMAGE:prod
 
 test-url-shortener:
   stage: test-url-shortener
-  image: $IMAGE:$CI_COMMIT_SHORT_SHA
+  image: $IMAGE:prod
   services:
-    - postgres:12.3-alpine
+    - postgres:12.4-alpine
   variables:
     POSTGRES_DB: url_shortener_test
     POSTGRES_USER: runner
@@ -60,17 +60,21 @@ build-heroku:
         --target build
         --cache-from $IMAGE:build
         --tag $IMAGE:build
+        --tag $IMAGE:build-$CI_COMMIT_SHORT_SHA
         --file ./Dockerfile.deploy
         "."
     - docker build
         --target deploy
         --cache-from $IMAGE:deploy
         --tag $IMAGE:deploy
+        --tag $IMAGE:deploy-$CI_COMMIT_SHORT_SHA
         --tag $HEROKU_REGISTRY_IMAGE
         --file ./Dockerfile.deploy
         "."
     - docker push $IMAGE:build
+    - docker push $IMAGE:build-$CI_COMMIT_SHORT_SHA
     - docker push $IMAGE:deploy
+    - docker push $IMAGE:deploy-$CI_COMMIT_SHORT_SHA
     - echo -n $HEROKU_AUTH_TOKEN | docker login -u _ --password-stdin registry.heroku.com
     - docker push $HEROKU_REGISTRY_IMAGE
     - ./release.sh
