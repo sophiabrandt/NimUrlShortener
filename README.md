@@ -11,9 +11,10 @@
 
 This is a learning project to improve my knowledge of **[Nim][nim]**.
 
-[![screenshot](screenshot.png)][livedemo]
+![screenshot](screenshot.png)
 
-You can see a **[LIVE DEMO on Heroku][livedemo]**.
+_Note:_ Heroku nuked my free live demo because somebody misused it. Currently I don't plan to redeploy it.  
+If you are interested in this application, you can run it locally if you have Docker-Compose installed.
 
 ## Built With
 
